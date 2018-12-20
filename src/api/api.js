@@ -1,9 +1,9 @@
-export function getDashboard(username) {
+import axios from 'axios';
+
+const baseURI = "http://localhost:5000/";
+
+export default function getDataDashboard(username) {
     if (username) {
-        fetch('http://localhost:5000/api/users').then((res)=>{
-            return res.json();
-        }).then((data)=>{
-            return data;
-        })
+        return axios.get(baseURI + 'api/users/');
     }
 }
