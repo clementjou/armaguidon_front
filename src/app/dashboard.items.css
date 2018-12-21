@@ -1,0 +1,34 @@
+.main-dashboard-container{
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-dashboard-container .dashboard-items{
+    width: calc(100% - 100px);
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+}
+
+.main-dashboard-container .dashboard-items .dashboard-item{
+    width: 300px;
+    height: 200px;
+    box-shadow: 1px 2px 2px #c8c8c8;  
+    margin-right: 20px;
+    text-align: center;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.main-dashboard-container .dashboard-items .dashboard-item .add-item{
+    font-size: 70px;
+}
