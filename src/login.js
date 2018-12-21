@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import './App.css';
 
 
-export class Login extends Component {
+export class Login extends React.Component {
 
   constructor(props) {
     super(props);
@@ -33,6 +33,7 @@ export class Login extends Component {
         return res.data && res.data.map((res) => {
           if (res.Firstname && res.Firstname.toLowerCase() == username && username.toLowerCase()) {
             this.setState({ currentUser: this.state.userName, noUserFound: false });
+            this.props.history.push('/home/' + this.state.userName );
           } else {
             this.setState({ noUserFound: true, currentUser: "" })
           }
@@ -51,6 +52,7 @@ export class Login extends Component {
     if (this.state.currentUser) {
       User = <div className="login-message">
         Hello {this.state.currentUser}
+        His
       </div>
     }
 

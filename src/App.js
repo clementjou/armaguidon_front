@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
-import getDataDashboard from './api/api';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Login } from './login';
+import { Home } from './home';
 
 import './App.css';
 
 
-const App = () => (
-  <BrowserRouter>
-    <Switch>
-      <div>Coucou</div>
-      <Route  path="/" Component={Login} />
-    </Switch>
-  </BrowserRouter>
+const coucou = () => (
+  'coucou'
 )
+
+const Routes = () => (
+      <div>
+          <Route exact path="/" component={Login}/>
+          <Route path="/home/:userId" component={Home} />
+      </div>
+)
+
+ class App extends React.Component{
+   render(){
+     return <Router>
+       <div>
+         <Switch>
+          <Routes />
+         </Switch>
+       </div>
+   </Router>
+   }
+ }
+
 
 export default App;
