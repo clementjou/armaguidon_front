@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 
 
 
-export class AppMenu extends React.Component {
+export class AppMenu extends React.Component<any,any> {
 
 
     render() {
@@ -13,11 +13,10 @@ export class AppMenu extends React.Component {
             anchorEl={this.props.anchorEl}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={this.props.isMenuOpen}
-            onClose={this.handleMenuClose}>
+            open={this.props.isMenuOpen}>
 
-            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-            <MenuItem onClick={this.handleClose}>My account</MenuItem>
+            <MenuItem >Profile</MenuItem>
+            <MenuItem >My account</MenuItem>
         </Menu>
     }
 }

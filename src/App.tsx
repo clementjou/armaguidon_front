@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Login } from './login';
 import { AppShell } from './home';
@@ -13,7 +13,7 @@ const Routes = () => (
       </div>
 )
 
- class App extends React.Component{
+ export default class App extends React.Component<any, any>{
    render(){
      return <Router>
        <div>
@@ -24,6 +24,3 @@ const Routes = () => (
    </Router>
    }
  }
-
-
-export default App;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import getDataDashboard from './api/api';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import './App.css';
 
 
-export class Login extends React.Component {
+export class Login extends React.Component<any, any> {
 
   constructor(props) {
     super(props);
