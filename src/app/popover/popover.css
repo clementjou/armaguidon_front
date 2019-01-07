@@ -1,0 +1,17 @@
+.popover-overlay{
+    position: absolute;
+    width: 100%;
+    top:0;
+    left:0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popover-overlay .popover-container{
+    width: 500px;
+    height: 400px;
+    position: relative;
+    top: 20%;
+    margin: 0 auto;
+    background-color: #fff;
+}
