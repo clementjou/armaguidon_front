@@ -31,4 +31,11 @@
 
 .main-dashboard-container .dashboard-items .dashboard-item .add-item{
     font-size: 70px;
+    transition: 0.5s;
 }
+
+.main-dashboard-container .dashboard-items .dashboard-item .add-item:hover{
+    transform: scale(1.2,1.2);
+}
+
+

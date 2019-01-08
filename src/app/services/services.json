@@ -1,0 +1,10 @@
+{
+    "services": [
+        {
+            "id": "weather"
+        },
+        {
+            "id": "news"
+        }
+    ]
+}

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Popover from './popover/index';
+import ServiceCatalogList from './services/servicecatalog';
 //Passer en LESS
 import './dashboard.items.css';
 
@@ -44,6 +45,14 @@ class MainDashboardItem extends React.Component<any, any> {
         this.state={
             showPopover : false
         }
+        this.onPopoverClose = this.onPopoverClose.bind(this);
+    }
+
+    onPopoverClose(arg?){
+        this.setState({showPopover: false});
+        if(arg){
+
+        }
     }
     render() {
         let props = {
@@ -52,15 +61,7 @@ class MainDashboardItem extends React.Component<any, any> {
         return <div className="dashboard-item">
             <p>{this.props.name}</p>
             {this.props.isEmpty ? <p onClick={()=> this.setState({showPopover : true})} className="add-item">+</p> : ""}
-            {this.state.showPopover ? <Popover component={Coucou} props={props} /> : null}
-        </div>
-    }
-}
-
-class Coucou extends React.Component<any,any>{
-    render(){
-        return <div className="coucou">
-            salut
+            {this.state.showPopover ? <Popover onClose={this.onPopoverClose} component={ServiceCatalogList} customProps={props} /> : null}
         </div>
     }
 }
