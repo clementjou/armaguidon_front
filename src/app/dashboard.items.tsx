@@ -45,23 +45,25 @@ class MainDashboardItem extends React.Component<any, any> {
         this.state={
             showPopover : false
         }
-        this.onPopoverClose = this.onPopoverClose.bind(this);
+        this.onCompleted = this.onCompleted.bind(this);
     }
 
-    onPopoverClose(arg?){
+    onCompleted(arg?){
         this.setState({showPopover: false});
         if(arg){
 
         }
     }
+
     render() {
         let props = {
-            a : "b"
+            onCompleted: this.onCompleted
         }
+
         return <div className="dashboard-item">
             <p>{this.props.name}</p>
             {this.props.isEmpty ? <p onClick={()=> this.setState({showPopover : true})} className="add-item">+</p> : ""}
-            {this.state.showPopover ? <Popover onClose={this.onPopoverClose} component={ServiceCatalog} customProps={props} /> : null}
+            {this.state.showPopover ? <Popover onCompleted={this.onCompleted} component={ServiceCatalog} customProps={props} /> : null}
         </div>
     }
 }

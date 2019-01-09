@@ -1,33 +1,36 @@
 import * as React from 'react';
 import ServiceManager from '../services/servicemanager';
 
-interface ServiceCatalogProps{
+interface ServiceCatalogProps {
 
 }
 export default class ServiceCatalog extends React.Component<ServiceCatalogProps, any>{
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             selectedService: null
         }
         this.serviceChanged = this.serviceChanged.bind(this);
     }
 
-    serviceChanged(service?){
-            this.setState({selectedService : service})
+    serviceChanged(service?) {
+        this.setState({ selectedService: service })
     }
 
 
-    render(){
+    render() {
         let content;
-        if(!this.state.selectedService){
+        if (!this.state.selectedService) {
             content = <ServiceCatalogList onChange={this.serviceChanged} {...this.props} />
         }
-        if(this.state.selectedService){
+        if (this.state.selectedService) {
             content = <ServiceManager onChange={this.serviceChanged} type={this.state.selectedService} />
         }
-        return content ? content : "";
+        return <div className="service-catalog">
+            {content ? content : ""}
+            <button>Validate</button>
+        </div>
     }
 }
 
@@ -61,7 +64,7 @@ interface CatalogItemProps {
 class CatalogItem extends React.Component<CatalogItemProps, any>{
 
     render() {
-        return <div onClick={()=> this.props.onChange(this.props.item.id)} className="catalog-item">
+        return <div onClick={() => this.props.onChange(this.props.item.id)} className="catalog-item">
             {this.props.item.id}
         </div>;
     }
