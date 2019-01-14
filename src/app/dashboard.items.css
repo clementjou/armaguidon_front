@@ -16,11 +16,25 @@
 
 }
 
-.main-dashboard-container .dashboard-items .dashboard-item{
+.size-L{
+    width: 100%;
+    height: 300px
+}
+
+.size-M{
+    width: calc(50% - 50px);
+    height: 200px
+}
+
+.size-S{
     width: 300px;
-    height: 200px;
+    height: 300px;
+}
+
+.main-dashboard-container .dashboard-items .dashboard-item{
     box-shadow: 1px 2px 2px #c8c8c8;  
     margin-right: 20px;
+    margin-top: 20px;
     text-align: center;
     background-color: #f4f4f4;
     display: flex;

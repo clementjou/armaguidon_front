@@ -1,35 +1,45 @@
 import * as React from 'react';
-import ServiceManager from '../services/servicemanager';
+import {ServiceManager} from '../services/servicemanager';
+import Button from '@material-ui/core/Button';
+
+import './servicecatalog.css';
 
 interface ServiceCatalogProps {
-
+    onCompleted: (res?) => void
 }
 export default class ServiceCatalog extends React.Component<ServiceCatalogProps, any>{
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedService: null
+            selectedService: null,
+            showServiceDetail: null
         }
         this.serviceChanged = this.serviceChanged.bind(this);
     }
 
     serviceChanged(service?) {
-        this.setState({ selectedService: service })
+        if (service) {
+            this.setState({ selectedService: service, showServiceDetail: true });
+        }
     }
 
 
+
     render() {
-        let content;
-        if (!this.state.selectedService) {
-            content = <ServiceCatalogList onChange={this.serviceChanged} {...this.props} />
+        let content, backButton;
+        if (!this.state.selectedService || !this.state.showServiceDetail) {
+            content = <ServiceCatalogList selectedService={this.state.selectedService} onChange={this.serviceChanged} {...this.props} />
         }
-        if (this.state.selectedService) {
-            content = <ServiceManager onChange={this.serviceChanged} type={this.state.selectedService} />
+        if (this.state.selectedService && this.state.showServiceDetail) {
+            content = <ServiceManager item={this.state.item} onChange={this.serviceChanged} type="editor" />
         }
         return <div className="service-catalog">
             {content ? content : ""}
-            <button>Validate</button>
+            <div className="control-buttons">
+                <Button disabled={!this.state.showServiceDetail} variant="contained" onClick={() => this.setState({ showServiceDetail: false })}>Back</Button>
+                <Button variant="contained" color="primary" disabled={!this.state.selectedService} onClick={() => this.props.onCompleted(this.state.selectedService)}>Validate</Button>
+            </div>
         </div>
     }
 }
@@ -37,16 +47,21 @@ export default class ServiceCatalog extends React.Component<ServiceCatalogProps,
 
 interface ServiceCatalogListProps {
     onChange: (res?: any) => void;
+    selectedService: string;
 }
 
 export class ServiceCatalogList extends React.Component<ServiceCatalogListProps, any>{
+
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         let services;
         const catalog = require('../services/services.json');
         if (catalog && catalog.services && catalog.services.length) {
             services = catalog.services.map((s, i) => {
-                return <CatalogItem onChange={this.props.onChange} item={s} key={i} />
+                return <CatalogItem selected={this.props.selectedService == s.id} onChange={this.props.onChange} item={s} key={i} />
             })
         }
         return <div className="catalog-list">
@@ -59,12 +74,13 @@ export class ServiceCatalogList extends React.Component<ServiceCatalogListProps,
 interface CatalogItemProps {
     onChange: (res?: any) => void;
     item: any;
+    selected: boolean;
 }
 
 class CatalogItem extends React.Component<CatalogItemProps, any>{
 
     render() {
-        return <div onClick={() => this.props.onChange(this.props.item.id)} className="catalog-item">
+        return <div onClick={() => this.props.onChange(this.props.item.id)} className={"catalog-item " + (this.props.selected ? "selected" : "")}>
             {this.props.item.id}
         </div>;
     }

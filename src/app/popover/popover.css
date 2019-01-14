@@ -15,3 +15,21 @@
     margin: 0 auto;
     background-color: #fff;
 }
+
+.popover-overlay .popover-container .popover-content{
+    height: calc(100% - 40px);   
+}
+
+.popover-overlay .popover-container .popover-header{
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.popover-overlay .popover-container .popover-header .close-button{
+    width: 30px;
+}
+
+.popover-overlay .popover-container .popover-header h2{
+    width: calc(100% - 30px);
+}

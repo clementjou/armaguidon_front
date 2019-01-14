@@ -1,0 +1,42 @@
+.service-catalog{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.service-catalog .catalog-list{
+    display: flex;
+    flex-wrap: wrap;
+    height: calc(100% - 50px);
+
+}
+
+
+.service-catalog .catalog-list .catalog-item{
+    display: flex;
+    width: 110px;
+    height: 100px;
+    padding: 5px 0px;
+    margin: 0px 10px;
+    background-color: #e1e1e1;
+    border-radius: 5%;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+}
+
+.service-catalog .catalog-list .catalog-item:hover{
+    box-shadow: 2px 1px #a1a1a1;
+}
+
+.service-catalog .catalog-list .catalog-item.selected{
+    background-color: #3f51b5;
+    color: #fff;
+}
+
+.service-catalog .control-buttons{
+    display: flex;
+    height: 50px;
+    padding: 10px 0;
+    justify-content: space-around;
+}

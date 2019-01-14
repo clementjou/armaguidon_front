@@ -13,6 +13,12 @@ export default class Popover extends React.Component<PopoverProps, any>{
     render() {
         return <div className="popover-overlay">
             <div className="popover-container">
+                <div className="popover-header">
+                    <h2>{this.props.title ? this.props.title : ""}</h2>
+                    <div className="close-button">
+                        <span onClick={() => this.props.onCompleted(null)}>X</span>
+                    </div>
+                </div>
                 <PopoverContent title={this.props.title} onCompleted={this.props.onCompleted} component={this.props.component} customProps={this.props.customProps} />
                 {this.props.actions ? <PopoverActions actions={this.props.actions} /> : null}
             </div>
@@ -48,10 +54,6 @@ class PopoverContent extends React.Component<PopoverContentProps, any>{
 
     render() {
         return <div className="popover-content">
-            <div className="popover-header">
-                <h2>{this.props.title ? this.props.title : ""}</h2>
-                <span onClick={()=> this.props.onCompleted(null)}>X</span>
-            </div>
             {React.createElement(this.props.component, this.props.customProps)}
         </div>
     }
