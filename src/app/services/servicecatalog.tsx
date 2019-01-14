@@ -20,7 +20,7 @@ export default class ServiceCatalog extends React.Component<ServiceCatalogProps,
 
     serviceChanged(service?) {
         if (service) {
-            this.setState({ selectedService: service, showServiceDetail: true });
+            this.setState({ item:{ type : service}, showServiceDetail: true });
         }
     }
 
@@ -31,14 +31,14 @@ export default class ServiceCatalog extends React.Component<ServiceCatalogProps,
         if (!this.state.selectedService || !this.state.showServiceDetail) {
             content = <ServiceCatalogList selectedService={this.state.selectedService} onChange={this.serviceChanged} {...this.props} />
         }
-        if (this.state.selectedService && this.state.showServiceDetail) {
+        if (this.state.item && this.state.item.type && this.state.showServiceDetail) {
             content = <ServiceManager item={this.state.item} onChange={this.serviceChanged} type="editor" />
         }
         return <div className="service-catalog">
             {content ? content : ""}
             <div className="control-buttons">
                 <Button disabled={!this.state.showServiceDetail} variant="contained" onClick={() => this.setState({ showServiceDetail: false })}>Back</Button>
-                <Button variant="contained" color="primary" disabled={!this.state.selectedService} onClick={() => this.props.onCompleted(this.state.selectedService)}>Validate</Button>
+                <Button variant="contained" color="primary" disabled={!this.state.item} onClick={() => this.props.onCompleted(this.state.item)}>Validate</Button>
             </div>
         </div>
     }

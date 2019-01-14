@@ -33,7 +33,7 @@ export class MainDashboardItems extends React.Component<any, any> {
 
     itemChanged(arg) {
         if (arg) {
-            this.items.push({ name: arg })
+            this.items.push(arg)
             this.setState({ items: this.items })
         }
     }
