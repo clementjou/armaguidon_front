@@ -10,17 +10,17 @@ export default function getDataDashboard(username) {
 }
 
 export async function getWeatherApi():Promise<any>{
+    let weather;
     const API_KEY = "506518a3fa09231c6c8135dcb25cc873";
     const baseURI = "https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=";
-    axios.get(baseURI + API_KEY).then((res)=>{
+    await axios.get(baseURI + API_KEY).then((res)=>{
         if(res && res.data && res.data){
-            const weather = res.data;
-            if(weather){
-                return Promise.resolve(weather);
-            }
-        }else{
-            return Promise.reject()
+                weather = res.data;
         }
     })
-    return 
+    if(weather){
+        return Promise.resolve(weather);
+    }else{
+        return Promise.reject();
+    }
 }
