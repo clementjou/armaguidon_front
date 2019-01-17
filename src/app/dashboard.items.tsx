@@ -17,7 +17,7 @@ export class MainDashboardItems extends React.Component<any, any> {
                 type: "weather",
                 name: "Lorem pimpum",
                 config: {
-
+                    location: "Paris"
                 }
             },
             {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {getWeatherApi} from "../../../api/api";
 
 interface WeatherServiceDisplayerProps{
-
+item: any;
 }
 
 export class WeatherServiceDisplayer extends React.Component<WeatherServiceDisplayerProps,any>{
@@ -13,7 +13,7 @@ export class WeatherServiceDisplayer extends React.Component<WeatherServiceDispl
         }
     }
     componentDidMount(){
-        getWeatherApi().then((weather)=>{
+        getWeatherApi(this.props.item && this.props.item.config && this.props.item.config.location).then((weather)=>{
             if(weather){
                 this.setState({weather});
             }

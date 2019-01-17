@@ -9,10 +9,10 @@ export default function getDataDashboard(username) {
     }
 }
 
-export async function getWeatherApi():Promise<any>{
+export async function getWeatherApi(location?):Promise<any>{
     let weather;
+    const baseURI = `https://api.openweathermap.org/data/2.5/weather?q=${location? location : "paris"}&appid=`;
     const API_KEY = "506518a3fa09231c6c8135dcb25cc873";
-    const baseURI = "https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=";
     await axios.get(baseURI + API_KEY).then((res)=>{
         if(res && res.data && res.data){
                 weather = res.data;

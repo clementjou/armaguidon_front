@@ -20,7 +20,7 @@ export default class ServiceCatalog extends React.Component<ServiceCatalogProps,
 
     serviceChanged(service?) {
         if (service) {
-            this.setState({ item:{ type : service}, showServiceDetail: true });
+            this.setState({ item : service, showServiceDetail: true });
         }
     }
 
@@ -80,7 +80,7 @@ interface CatalogItemProps {
 class CatalogItem extends React.Component<CatalogItemProps, any>{
 
     render() {
-        return <div onClick={() => this.props.onChange(this.props.item.id)} className={"catalog-item " + (this.props.selected ? "selected" : "")}>
+        return <div onClick={() => this.props.onChange({type : this.props.item.id})} className={"catalog-item " + (this.props.selected ? "selected" : "")}>
             {this.props.item.id}
         </div>;
     }
