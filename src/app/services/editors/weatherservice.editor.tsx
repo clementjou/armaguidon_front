@@ -20,7 +20,7 @@ export class WeatherServiceEditor extends React.Component<WeatherServiceEditorPr
     render() {
 
         return <form className="weather-service-editor">
-            <TextField label="Ville" margin="normal" type="text" onChange={(arg) => this.onValueChange({location : arg.currentTarget.value})} />
+            <TextField label="Ville" margin="normal" type="text" value={this.props.item && this.props.item.config && this.props.item.config.location} onChange={(arg) => this.onValueChange({location : arg.currentTarget.value})} />
         </form>
     }
 }

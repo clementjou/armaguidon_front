@@ -36,9 +36,12 @@ export class WeatherServiceDisplayer extends React.Component<WeatherServiceDispl
         let temp = this.state.weather && this.state.weather.main && this.state.weather.main.temp;
         let condition = this.state.weather && this.state.weather.weather && this.state.weather.weather[0] && this.state.weather.weather[0].description;
         let image = this.getWeatherImage(condition);
+        let iconCode = this.state.weather && this.state.weather.weather && this.state.weather.weather.length && this.state.weather.weather[0].icon;
+        let iconUrl = "http://openweathermap.org/img/w/"+ iconCode +".png"
         return <div className="weather-service-displayer" style={{ backgroundImage: `url(${image})` }}>
             <p>{cityName}</p>
             <p>{condition}</p>
+            <img src={iconUrl} alt=""/>
             <p>{temp} °F</p>
         </div>
     }
