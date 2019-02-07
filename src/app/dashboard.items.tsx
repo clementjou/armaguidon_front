@@ -15,6 +15,7 @@ export class MainDashboardItems extends React.Component<any, any> {
         this.items.push(
             {
                 type: "weather",
+                id: 1,
                 name: "Lorem pimpum",
                 config: {
                     location: "Paris"
@@ -22,6 +23,7 @@ export class MainDashboardItems extends React.Component<any, any> {
             },
             {
                 type: "news",
+                id: 2,
                 name: "salut toi",
                 config: {
 
@@ -31,10 +33,13 @@ export class MainDashboardItems extends React.Component<any, any> {
     }
 
 
-    itemChanged(arg) {
+    itemChanged(arg, deleteItem?) {
         if (arg) {
             this.items.push(arg)
             this.setState({ items: this.items })
+        }
+        if(deleteItem){
+            let item = this.items.indexOf(arg.id);
         }
     }
 
@@ -64,10 +69,10 @@ class MainDashboardItem extends React.Component<any, any> {
         this.onCompleted = this.onCompleted.bind(this);
     }
 
-    onCompleted(arg?) {
+    onCompleted(arg?, deleteItem?) {
         this.setState({ showPopover: false });
         if (arg) {
-            this.props.onChange(arg);
+            this.props.onChange(arg, deleteItem);
         }
     }
 

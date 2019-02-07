@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 
 interface ServiceEditorManagerProps {
     type: string;
-    onCompleted: (res?) => void;
+    onCompleted: (res?, deleteItem?) => void;
     item: any;
 }
 
@@ -25,6 +25,7 @@ export class ServiceEditorManager extends React.Component<ServiceEditorManagerPr
             <ServiceManager item={this.props.item} onChange={this.onChange} type="editor" />
             <div className="control-buttons">
                 <Button variant="contained" color="primary" onClick={() => this.props.onCompleted(this.state.service)}>Validate</Button>
+                <Button color="primary" onClick={() => this.props.onCompleted(this.state.service, true)}>Delete</Button>
             </div>
         </div>
     }

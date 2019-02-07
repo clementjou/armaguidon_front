@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {ServiceManager} from '../services/servicemanager';
 import Button from '@material-ui/core/Button';
+const uuidv1 = require('uuid/v1');
 
 import './servicecatalog.css';
 
@@ -80,7 +81,7 @@ interface CatalogItemProps {
 class CatalogItem extends React.Component<CatalogItemProps, any>{
 
     render() {
-        return <div onClick={() => this.props.onChange({type : this.props.item.id})} className={"catalog-item " + (this.props.selected ? "selected" : "")}>
+        return <div onClick={() => this.props.onChange({type : this.props.item.id, id : uuidv1()})} className={"catalog-item " + (this.props.selected ? "selected" : "")}>
             {this.props.item.id}
         </div>;
     }
