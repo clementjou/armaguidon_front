@@ -5,6 +5,7 @@ import ServiceCatalog from './services/servicecatalog';
 import './dashboard.items.css';
 import { ServiceEditorManager } from './services/serviceeditormanager';
 import { ServiceManager } from './services/servicemanager';
+import {SetNewDashboardItem} from '../api/api';
 
 //Implémenter en base
 export class MainDashboardItems extends React.Component<any, any> {
@@ -35,6 +36,7 @@ export class MainDashboardItems extends React.Component<any, any> {
 
     itemChanged(arg, deleteItem?) {
         if (arg) {
+            SetNewDashboardItem(arg);
             this.items.push(arg)
             this.setState({ items: this.items })
         }

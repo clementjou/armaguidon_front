@@ -24,3 +24,10 @@ export async function getWeatherApi(location?):Promise<any>{
         return Promise.reject();
     }
 }
+
+export function SetNewDashboardItem(item){
+    if(item){
+
+        axios.post(baseURI + 'api/DashboardItems', JSON.stringify(item));
+    }
+}
