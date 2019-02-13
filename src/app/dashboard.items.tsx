@@ -5,7 +5,7 @@ import ServiceCatalog from './services/servicecatalog';
 import './dashboard.items.css';
 import { ServiceEditorManager } from './services/serviceeditormanager';
 import { ServiceManager } from './services/servicemanager';
-import {SetNewDashboardItem} from '../api/api';
+import {SetNewDashboardItem, getDashboardItems} from '../api/api';
 
 //Implémenter en base
 export class MainDashboardItems extends React.Component<any, any> {
@@ -13,24 +13,17 @@ export class MainDashboardItems extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.itemChanged = this.itemChanged.bind(this);
-        this.items.push(
-            {
-                type: "weather",
-                id: 1,
-                name: "Lorem pimpum",
-                config: {
-                    location: "Paris"
-                }
-            },
-            {
-                type: "news",
-                id: 2,
-                name: "salut toi",
-                config: {
+        this.state={
+            dashboardItems : null
+        }
+    }
 
-                }
+    componentDidMount(){
+        getDashboardItems(1).then((dashboardItems)=>{
+            if(dashboardItems && dashboardItems.length){
+                this.setState({dashboardItems});
             }
-        )
+        })
     }
 
 
@@ -48,8 +41,8 @@ export class MainDashboardItems extends React.Component<any, any> {
     render() {
         let renderItems = null;
 
-        if (this.items && this.items.length) {
-            renderItems = this.items.map((item) => {
+        if (this.state.dashboardItems && this.state.dashboardItems.length) {
+            renderItems = this.state.dashboardItems.map((item) => {
                 return <MainDashboardItem onChange={this.itemChanged} item={item} />
             })
         }

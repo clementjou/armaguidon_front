@@ -27,7 +27,20 @@ export async function getWeatherApi(location?):Promise<any>{
 
 export function SetNewDashboardItem(item){
     if(item){
-
         axios.post(baseURI + 'api/DashboardItems', JSON.stringify(item));
+    }
+}
+
+export async function getDashboardItems(userId):Promise<any>{
+    let DashboardItems;
+    await axios.get(baseURI + 'api/DashboardItems').then((items)=>{
+      if(items && items.data && items.data.length){
+          DashboardItems = items.data.filter((item) => item.UserId == userId);
+      }
+    })
+    if(DashboardItems){
+        return Promise.resolve(DashboardItems);
+    }else{
+        return Promise.reject(DashboardItems);
     }
 }
