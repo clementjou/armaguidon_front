@@ -5,7 +5,7 @@ import { MainDashboard } from './maindashboard';
 
 const Routes = (props) => (
     <div>
-        <Route path={props.match.path + "coucou"} component={MainDashboard} />
+        <Route path={props.match.path} component={MainDashboard} />
     </div>
 )
 

@@ -5,7 +5,8 @@ import ServiceCatalog from './services/servicecatalog';
 import './dashboard.items.css';
 import { ServiceEditorManager } from './services/serviceeditormanager';
 import { ServiceManager } from './services/servicemanager';
-import {SetNewDashboardItem, getDashboardItems} from '../api/api';
+import {SetNewDashboardItem, getDashboardItems, DeleteDashboardItem, UpdateDashboardItem} from '../api/api';
+import * as lodash from 'lodash';
 
 //Implémenter en base
 export class MainDashboardItems extends React.Component<any, any> {
@@ -19,7 +20,11 @@ export class MainDashboardItems extends React.Component<any, any> {
     }
 
     componentDidMount(){
-        getDashboardItems(1).then((dashboardItems)=>{
+        this.initItems()
+    }
+
+    initItems(){
+        getDashboardItems(this.props.userId).then((dashboardItems)=>{
             if(dashboardItems && dashboardItems.length){
                 this.setState({dashboardItems});
             }
@@ -27,14 +32,26 @@ export class MainDashboardItems extends React.Component<any, any> {
     }
 
 
-    itemChanged(arg, deleteItem?) {
+    itemChanged(arg, deleteItem?, updateItem?) {
+        
         if (arg) {
-            SetNewDashboardItem(arg);
-            this.items.push(arg)
-            this.setState({ items: this.items })
-        }
-        if(deleteItem){
-            let item = this.items.indexOf(arg.id);
+            let dashboardItems = lodash.assign([], this.state.dashboardItems);
+            if(deleteItem){
+                DeleteDashboardItem(arg.itemId).then(()=>{
+                    this.initItems();
+                })
+            }else if(updateItem){
+                UpdateDashboardItem(arg).then(()=>{
+                    this.initItems();
+                });
+            }else{
+                SetNewDashboardItem(arg).then(()=>{
+                    this.initItems();
+                })
+                //const item = lodash.assign({}, arg);
+                //dashboardItems.push(item);
+            }
+            this.setState({ dashboardItems })
         }
     }
 
@@ -43,13 +60,21 @@ export class MainDashboardItems extends React.Component<any, any> {
 
         if (this.state.dashboardItems && this.state.dashboardItems.length) {
             renderItems = this.state.dashboardItems.map((item) => {
-                return <MainDashboardItem onChange={this.itemChanged} item={item} />
+                if(item && item.config && typeof item.config == "string"){
+                    item.config = JSON.parse(item.config as string);
+                }
+                if(item.config && item.config.location){
+                    return <MainDashboardItem onChange={this.itemChanged} item={item} />
+                }else{
+                    return;
+                }
+                
             })
         }
 
         return <div className="dashboard-items">
             {renderItems}
-            <MainDashboardAddItem onChange={this.itemChanged} isEmpty={true} />
+            <MainDashboardAddItem userId={this.props.userId} onChange={this.itemChanged} isEmpty={true} />
         </div>
     }
 }
@@ -64,10 +89,10 @@ class MainDashboardItem extends React.Component<any, any> {
         this.onCompleted = this.onCompleted.bind(this);
     }
 
-    onCompleted(arg?, deleteItem?) {
+    onCompleted(arg?, deleteItem?, updateItem?) {
         this.setState({ showPopover: false });
         if (arg) {
-            this.props.onChange(arg, deleteItem);
+            this.props.onChange(arg, deleteItem, updateItem);
         }
     }
 
@@ -102,7 +127,8 @@ class MainDashboardAddItem extends React.Component<any, any>{
 
     render() {
         let props = {
-            onCompleted: this.onCompleted
+            onCompleted: this.onCompleted,
+            userId: this.props.userId
         }
 
         return <div className="dashboard-item size-S">

@@ -6,7 +6,8 @@ const uuidv1 = require('uuid/v1');
 import './servicecatalog.css';
 
 interface ServiceCatalogProps {
-    onCompleted: (res?) => void
+    onCompleted: (res?) => void;
+    userId: string;
 }
 export default class ServiceCatalog extends React.Component<ServiceCatalogProps, any>{
 
@@ -30,7 +31,7 @@ export default class ServiceCatalog extends React.Component<ServiceCatalogProps,
     render() {
         let content, backButton;
         if (!this.state.selectedService || !this.state.showServiceDetail) {
-            content = <ServiceCatalogList selectedService={this.state.selectedService} onChange={this.serviceChanged} {...this.props} />
+            content = <ServiceCatalogList userId={this.props.userId} selectedService={this.state.selectedService} onChange={this.serviceChanged} {...this.props} />
         }
         if (this.state.item && this.state.item.type && this.state.showServiceDetail) {
             content = <ServiceManager item={this.state.item} onChange={this.serviceChanged} type="editor" />
@@ -49,6 +50,7 @@ export default class ServiceCatalog extends React.Component<ServiceCatalogProps,
 interface ServiceCatalogListProps {
     onChange: (res?: any) => void;
     selectedService: string;
+    userId: string;
 }
 
 export class ServiceCatalogList extends React.Component<ServiceCatalogListProps, any>{
@@ -62,7 +64,7 @@ export class ServiceCatalogList extends React.Component<ServiceCatalogListProps,
         const catalog = require('../services/services.json');
         if (catalog && catalog.services && catalog.services.length) {
             services = catalog.services.map((s, i) => {
-                return <CatalogItem selected={this.props.selectedService == s.id} onChange={this.props.onChange} item={s} key={i} />
+                return <CatalogItem userId={this.props.userId} selected={this.props.selectedService == s.id} onChange={this.props.onChange} item={s} key={i} />
             })
         }
         return <div className="catalog-list">
@@ -76,12 +78,13 @@ interface CatalogItemProps {
     onChange: (res?: any) => void;
     item: any;
     selected: boolean;
+    userId: string;
 }
 
 class CatalogItem extends React.Component<CatalogItemProps, any>{
 
     render() {
-        return <div onClick={() => this.props.onChange({type : this.props.item.id, id : uuidv1()})} className={"catalog-item " + (this.props.selected ? "selected" : "")}>
+        return <div onClick={() => this.props.onChange({type : this.props.item.id, userId: this.props.userId, id : uuidv1()})} className={"catalog-item " + (this.props.selected ? "selected" : "")}>
             {this.props.item.id}
         </div>;
     }

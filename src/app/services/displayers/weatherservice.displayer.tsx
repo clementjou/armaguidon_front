@@ -22,6 +22,16 @@ export class WeatherServiceDisplayer extends React.Component<WeatherServiceDispl
         }
     }
 
+    componentWillUpdate(nextProps){
+        if(nextProps != this.props){
+            getWeatherApi(nextProps.item && nextProps.item.config && nextProps.item.config.location).then((weather) => {
+                if (weather) {
+                    this.setState({ weather });
+                }
+            })
+        }
+    }
+
 
     componentDidMount() {
         getWeatherApi(this.props.item && this.props.item.config && this.props.item.config.location).then((weather) => {

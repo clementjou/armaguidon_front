@@ -1,4 +1,7 @@
 import axios from 'axios';
+import {serialize} from 'react-serialize';
+import { promised } from 'q';
+import { Portal } from '@material-ui/core';
 
 
 const baseURI = "http://localhost:5000/";
@@ -25,9 +28,45 @@ export async function getWeatherApi(location?):Promise<any>{
     }
 }
 
-export function SetNewDashboardItem(item){
+export async function SetNewDashboardItem(item): Promise<any>{
     if(item){
-        axios.post(baseURI + 'api/DashboardItems', JSON.stringify(item));
+        if(item.config){
+            item.config = serialize(item.config);
+        }
+        await axios.post(baseURI + 'api/DashboardItems', item).then((arg)=>{
+            if(arg){
+                Promise.resolve(arg);
+            }
+        }, (err)=>{
+            Promise.reject(err);
+        })
+    }
+}
+
+export async function DeleteDashboardItem(itemId): Promise<any>{
+    if(itemId){
+        await axios.delete(baseURI + 'api/DashboardItems/' + itemId).then((arg)=>{
+            if(arg){
+                Promise.resolve(arg);
+            }
+        }, (err)=>{
+            Promise.reject(err);
+        })
+    }
+}
+
+export async function UpdateDashboardItem(item): Promise<any>{
+    if(item && item.itemId){
+        if(item && item.config){
+            item.config = serialize(item.config);
+        }
+        await axios.put(baseURI + 'api/DashboardItems/' + item.itemId, item ).then((arg)=>{
+            if(arg){
+                Promise.resolve(arg)
+            }
+        }, (err)=>{
+            Promise.reject(err);
+        })
     }
 }
 

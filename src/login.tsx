@@ -32,8 +32,8 @@ export class Login extends React.Component<any, any> {
       getDataDashboard(username).then(res => {
         return res.data && res.data.map((res) => {
           if (res.Firstname && res.Firstname.toLowerCase() == username && username.toLowerCase()) {
-            this.setState({ currentUser: this.state.userName, noUserFound: false });
-            this.props.history.push('/home/' + this.state.userName );
+            this.setState({ currentUser: this.state.userName, userId: res.userId, noUserFound: false });
+            this.props.history.push('/home/user/' + res.UserId );
           } else {
             this.setState({ noUserFound: true, currentUser: "" })
           }

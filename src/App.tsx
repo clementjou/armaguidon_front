@@ -9,7 +9,7 @@ import './App.css';
 const Routes = () => (
       <div>
           <Route exact path="/" component={Login}/>
-          <Route path="/home/:userId" component={AppShell} />
+          <Route path="/home/user/:userId" component={AppShell} />
       </div>
 )
 

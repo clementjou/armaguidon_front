@@ -10,9 +10,9 @@ interface WeatherServiceEditorProps {
 
 export class WeatherServiceEditor extends React.Component<WeatherServiceEditorProps, any>{
 
-    onValueChange(arg) {
-        if(this.props.item && arg){
-            let item = lodash.assign({}, this.props.item, {config : arg});
+    onValueChange(patch) {
+        if(this.props.item && patch){
+            let item = lodash.assign({}, this.props.item, {config : lodash.assign({}, this.props.item.config, patch)});
             this.props.onChange(item);
         }
     }
